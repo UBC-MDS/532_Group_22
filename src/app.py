@@ -59,7 +59,7 @@ def import_data():
     
     heroku_path = "data/processed/DSCI532-CDN-CRIME-DATA.tsv"
     local_path = "../data/processed/DSCI532-CDN-CRIME-DATA.tsv"
-    data = pd.read_csv(local_path, sep="\t", encoding="ISO-8859-1")
+    data = pd.read_csv(heroku_path, sep="\t", encoding="ISO-8859-1")
     return data
     
 DATA = import_data()
