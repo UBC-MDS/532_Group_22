@@ -4,3 +4,7 @@ altair
 dash==1.18.1
 dash_bootstrap_components
 plotly==4.14.3
+dash-leaflet
+dash-extensions
+numpy
+json

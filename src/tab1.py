@@ -48,6 +48,7 @@ def generate_layout():
                                             dcc.Dropdown(
                                                 id="metric_select",
                                                 optionHeight=dropdown_height,
+                                                clearable=False
                                             ),
                                         ],
                                         style={"width": "100%"},
@@ -63,6 +64,7 @@ def generate_layout():
                                             dcc.Dropdown(
                                                 id="violation_select",
                                                 optionHeight=dropdown_height,
+                                                clearable=False
                                             ),
                                         ],
                                         style={"width": "100%"},
@@ -78,6 +80,7 @@ def generate_layout():
                                             dcc.Dropdown(
                                                 id="subviolation_select",
                                                 optionHeight=dropdown_height,
+                                                clearable=False
                                             ),
                                         ],
                                         style={"width": "100%"},
@@ -90,13 +93,14 @@ def generate_layout():
                                     html.Div(
                                         [
                                             "Select Year of Interest",
-                                            dcc.RangeSlider(
+                                            dcc.Slider(
                                                 id="year_select",
                                                 min = start_year, 
                                                 max = end_year,
                                                 step = 1,
-                                                value =[1998, 2019], 
+                                                value =2019, 
                                                 dots = True,
+                                                included=False,
                                                 tooltip = {"placement": "top"},
                                                 marks = slider_marks
                                                 )

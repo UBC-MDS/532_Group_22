@@ -32,9 +32,9 @@ server = app.server
 app.layout = html.Div([
     dbc.Row(
         [
-            html.H1("Criminality in Canada",
+            html.H2("Criminality in Canada: Fighting Anecdotes with Data",
             style = {                    
-                    'padding':10
+                    'padding':5
                     }
             )
         ],
@@ -46,8 +46,8 @@ app.layout = html.Div([
     ),
     dbc.Tabs(
         [
-            dbc.Tab(label='Geographic Crime Comparisons', tab_id='tab-1'),
-            dbc.Tab(label='Crime Trends', tab_id='tab-2')
+            dbc.Tab(label='Geographic Crime Comparisons', tab_id='tab-1', label_style={'font-weight':'bold'}),
+            dbc.Tab(label='Crime Trends', tab_id='tab-2', label_style={'font-weight':'bold'})
         ],
         id='crime-dashboard-tabs',
         active_tab='tab-1'
@@ -108,7 +108,7 @@ def import_map():
     json
         geojson for provinces
     """
-    with open("data/processed/canada_provinces.geojson") as f:
+    with open("data/processed/provinces.geojson") as f:
         geojson = json.load(f)
     return geojson
 
@@ -133,7 +133,7 @@ def generate_cma_barplot(metric, violation, subcategory, year):
         (DATA["Metric"] == metric) & 
         (DATA["Level1 Violation Flag"] == violation) &
         ((DATA["Violation Description"] == subcategory) if subcategory!='All' else True) &
-        (DATA["Year"].isin(year)) &
+        (DATA["Year"] == year) &
         (DATA['Geo_Level'] == "CMA")
     ]
     
@@ -186,7 +186,7 @@ def generate_choropleth(metric, violation, subcategory, year):
         (DATA["Metric"] == metric) & 
         (DATA["Level1 Violation Flag"] == violation) &
         ((DATA["Violation Description"] == subcategory) if subcategory!='All' else True) &
-        (DATA["Year"].isin(year)) &
+        (DATA["Year"] == year) &
         (DATA['Geo_Level'] == "PROVINCE")
     ]
     
