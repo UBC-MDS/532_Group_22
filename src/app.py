@@ -35,12 +35,13 @@ server = app.server
 app.layout = html.Div([
     dbc.Row(
         [
-            html.H2("Criminality in Canada: Fighting Anecdotes with Data",
+            html.H3("Criminality in Canada: Fighting Anecdotes with Data",
             style = {                    
                     'padding':5
                     }
             )
         ],
+        justify='center',
         style={'backgroundColor': '#e6e6e6',
                 'border-radius': 5,
                 'margin':10,
@@ -221,8 +222,11 @@ def generate_choropleth(metric, violation, subcategory, year):
         (DATA["Year"] == year) &
         (DATA['Geo_Level'] == "PROVINCE")
     ]
-    
-    data_dict = dict(zip(df['Geography'], df['Value']))
+
+    if df.shape[0] == 0:
+        data_dict = dict(zip(DATA[DATA['Geo_Level'] == "PROVINCE"]['Geography'].unique(), [0]*13))
+    else:    
+        data_dict = dict(zip(df['Geography'], df['Value']))
     
     for location in geojson['features']:
         try:
@@ -233,8 +237,8 @@ def generate_choropleth(metric, violation, subcategory, year):
         
     num = 13 # number of provinces and territories in Canada
     vals = pd.Series(data_dict.values())
-    classes = list(np.linspace(int(vals.min())-0.01, int(vals.max())+0.01, num = num))
-    mm =  dict(min = vals.min(), max = vals.max()) 
+    classes = list(np.linspace(max(0,int(vals.min())), max(10,int(vals.max())+0.01), num = num))
+    mm =  dict(min = max(0,int(vals.min())), max = max(10,int(vals.max())+0.01)) 
     
     viridis = cm.get_cmap('viridis', num)
     colorscale = []
@@ -307,12 +311,13 @@ def generate_time_plots(geo_list, geo_level):
     html
         A 2 by 2 plot 
     """
-    metric = "Violations per 100k"
+    metric = "Rate per 100,000 population"
     metric_name = "Violations per 100k"
     
     df = DATA[
-        (DATA['Metric'] == 'Rate per 100,000 population') &
-        (DATA["Geo_Level"] == geo_level) 
+        (DATA['Metric'] == metric) &
+        (DATA["Geo_Level"] == geo_level) &
+        (DATA['Violation Description'] == 'All')
     ]
     df = df[df["Geography"].isin(geo_list)]
     df['Year'] = pd.to_datetime(df['Year'], format='%Y')
@@ -330,8 +335,8 @@ def generate_time_plots(geo_list, geo_level):
         plot_list.append(
             alt.Chart(df[df['Level1 Violation Flag'] == description], title = title).mark_line().encode(
                 x = alt.X('Year'),
-                y = alt.Y('Value', type='quantitative', aggregate='sum', title = metric_name),
-                tooltip = alt.Tooltip('Value', type='quantitative', aggregate='sum'),
+                y = alt.Y('Value'),
+                tooltip = ["Metric", 'Value'],
                 color = 'Geography').properties(height = 200, width = 300)
         )
 
@@ -440,4 +445,4 @@ if __name__ == '__main__':
     # Disable max rows for data sent to altair plots
     alt.data_transformers.disable_max_rows()
     
-    app.run_server(debug=True)
+    app.run_server(debug=False)
