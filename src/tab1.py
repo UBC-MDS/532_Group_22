@@ -22,7 +22,7 @@ def generate_layout():
         Container with the html content of the page
     """
     
-    dropdown_height = 70
+    dropdown_height = 50
     start_year = 1998
     end_year = 2019
     year_range = list(range(start_year, end_year+1,3))
