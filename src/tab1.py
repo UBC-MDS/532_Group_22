@@ -16,7 +16,6 @@ import dash_leaflet as dl
 
 def generate_layout():
     """Generate tab 1 layout
-
     Returns
     -------
     dbc.Container

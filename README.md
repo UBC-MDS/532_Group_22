@@ -14,9 +14,9 @@ Hi everyone, thanks for visiting the Criminality in Canada: Fighting Anecdotes w
 The document you are currently reading (README) is here to provide an overview and give some information regarding our project. Click the links below to take you to a section in which you're interested, or just scroll down to find out more. 
 
 
-* [`What are we doing? (And why?)`](#What-are-we-doing-And-why?)
-* [`Who are we?`](#Who-are-we?)
-* [`Installation`](#Installation)
+* [`What are we doing? (And why?)`](#what-are-we-doing)
+* [`Who are we?`](#who-are-we)
+* [`Installation`](#installation)
 * [`Team Members`](#team-members)
 * [`Teamwork Contract`](#teamwork-contract)
 * [`License`](#license)
@@ -37,7 +37,7 @@ The founders of this app are (Cal Schafer, Ifeanyi Anene, Sasha Babicki, Steffen
 The development of this app is overseen by our wonderful DSCI 532: Data Visualizations II Instructor and the respective teaching assistants TAs (Analise, Andy, Chris, Afshin). A pictorial visualization of our proposed dashboard can be seen below. 
 
 
-![Tab 1](doc/images/tab1_01_feb.png "Tab 1 - Geographic Crime Comparisons")
+![Tab 1](doc/images/tab1_latest.png "Tab 1 - Geographic Crime Comparisons")
 
 
 ![Tab 2](doc/images/tab2_01_feb.png "Tab 2 - Crime Time Trends")
@@ -53,7 +53,7 @@ The development of this app is overseen by our wonderful DSCI 532: Data Visualiz
 
 - To run the app locally, run the following command from the root of this repository
 
-`Python src/app.py`
+`python src/app.py`
 
 
 ### Contributions 

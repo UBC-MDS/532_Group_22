@@ -177,10 +177,10 @@ def generate_cma_barplot(metric, violation, subcategory, year, highlight):
     plot = alt.Chart(df, width=250).mark_bar().encode(
         x=alt.X('Value', axis=alt.Axis(title = metric)),
         y=alt.Y('Geography', axis=alt.Axis(title = 'Census Metropolitan Area (CMA)'), sort = '-x'), 
-        color="highlight",
-        tooltip='Value'
+        color=alt.Color("highlight", legend=None),
+        tooltip=["Metric", 'Value', 'Year']
     ).properties(
-        title=violation
+        title=(subcategory if subcategory != 'All' else violation)
     ).to_html()
     return plot
 
@@ -221,8 +221,11 @@ def generate_choropleth(metric, violation, subcategory, year):
         (DATA["Year"] == year) &
         (DATA['Geo_Level'] == "PROVINCE")
     ]
-    
-    data_dict = dict(zip(df['Geography'], df['Value']))
+
+    if df.shape[0] == 0:
+        data_dict = dict(zip(DATA[DATA['Geo_Level'] == "PROVINCE"]['Geography'].unique(), [0]*13))
+    else:    
+        data_dict = dict(zip(df['Geography'], df['Value']))
     
     for location in geojson['features']:
         try:
@@ -233,8 +236,8 @@ def generate_choropleth(metric, violation, subcategory, year):
         
     num = 13 # number of provinces and territories in Canada
     vals = pd.Series(data_dict.values())
-    classes = list(np.linspace(int(vals.min())-0.01, int(vals.max())+0.01, num = num))
-    mm =  dict(min = vals.min(), max = vals.max()) 
+    classes = list(np.linspace(max(0,int(vals.min())), max(10,int(vals.max())+0.01), num = num))
+    mm =  dict(min = max(0,int(vals.min())), max = max(10,int(vals.max())+0.01)) 
     
     viridis = cm.get_cmap('viridis', num)
     colorscale = []
@@ -282,7 +285,7 @@ def province_hover(feature):
     ]
     
     if feature is not None:
-        return [[html.H5(feature['properties']['PRENAME']),  feature['properties']['Value']], feature['properties']['PRENAME']]
+        return [[html.H5(feature['properties']['PRENAME']), feature['properties']['Value']], feature['properties']['PRENAME']]
     else:
         return [intro_message, None]
 
@@ -307,12 +310,13 @@ def generate_time_plots(geo_list, geo_level):
     html
         A 2 by 2 plot 
     """
-    metric = "Violations per 100k"
+    metric = "Rate per 100,000 population"
     metric_name = "Violations per 100k"
     
     df = DATA[
-        (DATA['Metric'] == 'Rate per 100,000 population') &
-        (DATA["Geo_Level"] == geo_level) 
+        (DATA['Metric'] == metric) &
+        (DATA["Geo_Level"] == geo_level) &
+        (DATA['Violation Description'] == 'All')
     ]
     df = df[df["Geography"].isin(geo_list)]
     df['Year'] = pd.to_datetime(df['Year'], format='%Y')
@@ -330,8 +334,8 @@ def generate_time_plots(geo_list, geo_level):
         plot_list.append(
             alt.Chart(df[df['Level1 Violation Flag'] == description], title = title).mark_line().encode(
                 x = alt.X('Year'),
-                y = alt.Y('Value', type='quantitative', aggregate='sum', title = metric_name),
-                tooltip = alt.Tooltip('Value', type='quantitative', aggregate='sum'),
+                y = alt.Y('Value'),
+                tooltip = ["Metric", 'Value'],
                 color = 'Geography').properties(height = 200, width = 300)
         )
 
