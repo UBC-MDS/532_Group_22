@@ -35,12 +35,13 @@ server = app.server
 app.layout = html.Div([
     dbc.Row(
         [
-            html.H2("Criminality in Canada: Fighting Anecdotes with Data",
+            html.H3("Criminality in Canada: Fighting Anecdotes with Data",
             style = {                    
                     'padding':5
                     }
             )
         ],
+        justify='center',
         style={'backgroundColor': '#e6e6e6',
                 'border-radius': 5,
                 'margin':10,
@@ -444,4 +445,4 @@ if __name__ == '__main__':
     # Disable max rows for data sent to altair plots
     alt.data_transformers.disable_max_rows()
     
-    app.run_server(debug=True)
+    app.run_server(debug=False)
