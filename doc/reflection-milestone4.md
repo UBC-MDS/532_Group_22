@@ -6,22 +6,22 @@ Our dashboard is split into two tabs, which we can discuss individually, along w
 
 ### Widgets
 
-We have four widgets that are in a partial state of completion.
+We have four widgets:
 
-- The first widget (Select Metric) is fully implemented.
+- The first widget (Select Metric) is fully implemented. It allows the user to select which metric to display (e.g. rate per 100k, etc)
 
-- Our second widget is fully implemented. It asks users to select from a crime topic (e.g., property, violent, etc).
+- Our second widget (Select Crime Grouping) is fully implemented. It asks users to select from a crime topic (e.g., property, violent, etc).
 
-- Our third widget is fully implemented. Based on what the user selected in the 2nd widget, this allows a user to select a sub-category (e.g., homicide) .
+- Our third widget (Select Violation Subcategory) is fully implemented. Based on what the user selected in the 2nd widget, this allows a user to select a sub-category (e.g., homicide, etc).
 
-- The fourth widget is fully implemented (Select a Year).
+- The fourth widget (Year Slider) is fully implemented. It allows the user to filter by a specific year. 
 
 
 ### Visualizations
 
 We have two visualizations to display in this tab.
 
-- First is a Choropleth map for Canada and its provinces. This is fully implemented. As a user selects different crime measurements, the map and its color gradient will update. We've also implemented a feature so that if you click on a province, the bar chart will color code any Census Metropolitian Areas that are in that province. 
+- First is a Choropleth map for Canada and its provinces. This is fully implemented. As a user selects different crime measurements, the map and its color gradient will update. We've also implemented a feature so that if you hover over a province, the bar chart will color code any Census Metropolitian Areas that are in that province. 
 
 - Second is a bar chart of the crime measurement broken down by Census Metropolitan Area. This is fully implemented. 
 
@@ -45,7 +45,7 @@ We've recently added a text box with some basic information about our project, w
 
 There are four plots on display in this tab. Each plot displays a metric (currently Criminal Incidents per 100,000 population) for different types of crimes in different geographical locations. 
 
-Small improvements we could have made, but didn't in time for our deadline were to relabel the y-axis (it currently is labelled as "value").
+An improvement we could have made, but didn't notice in time for our deadline, was to relabel the y-axis (it currently is labelled as "Value").
 
 
 ## Other Components
@@ -54,7 +54,7 @@ We cleaned up all textual descriptions of our data, for example, converting Winn
 
 ## Why we Implemented with Python
 
-We found it very challenging (and unsuccesful) to implement our Leaflet choleropeth map with R. It was a very easy implementation with Python, which was more than enough to tip us over to completing this project in Python.
+We found it very challenging (and unsuccessful) to implement our Leaflet choleropeth map with R. It was a very easy implementation with Python, which was more than enough to tip us over to completing this project in Python.
 
 
 ## Reflections on TA and Student Feedback
@@ -78,7 +78,7 @@ However, regarding usability, I think the appearance can be improved. For exampl
 
 *TA Feedback*
 
-Nice touch adding a graph save option. It would be helpful if you made a note to let the user know they can do this. It was hard to notice. **This is a default altair feature and not something we are really advertising, so we are leaving it in but not drawing attention to it**
+Nice touch adding a graph save option. It would be helpful if you made a note to let the user know they can do this. It was hard to notice. **This is a default altair feature. We have decided to leave it in but not specifically draw attention to it, as it is not a feature that would be important for our intended audience**
 
 ...In regards to your question about manually cleaning the y-axis of your Tab 1 bar graph, removing the [number] from each label would be more than enough... **addressed**
 
