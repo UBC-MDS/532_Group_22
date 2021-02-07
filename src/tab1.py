@@ -112,28 +112,30 @@ def generate_layout():
                             html.Br(),
                             dbc.Row(
                                 [
-                                    dbc.Col(
+                                     dbc.Col(
                                         [
                                             html.H5("About this Dashboard"),
-                                            html.P("""This Dashboard has been designed to give Canadians 
+                                            dcc.Markdown(['''This Dashboard has been designed to give Canadians 
                                             easy access to police-reported crime statistics so they can better understand 
                                             the state of public safety in their community and across the country. 
                                             Data visualizations have been organized to let users compare a multitude of crime 
-                                            types across Census Metropolitian Areas (CMAs) and dprovinces, and across time.
-                                            
-                                            """,
+                                            types across Census Metropolitian Areas (CMAs), provinces, and across time.
+                                            '''],
+        
                                             style = {'color': 'grey',
                                                      'font-size': '12px'}),
-
-                                            html.P("""                                           
-                                            All data shown on this dashboard is sourced from Statistics Canada, 
-                                            specifically table: 35-10-0177-01. Data is subject to the 
-                                            Uniform-Crime-Reporting (UCR2) standard, so that data is collected 
+                                            
+                                            html.Br(),
+                                            dcc.Markdown(['''All data shown on this dashboard is sourced from Statistics Canada, 
+                                            specifically [table 35-10-0177-01](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3510017701).
+                                            Data is subject to the Uniform-Crime-Reporting (UCR2) standard, insuring that data is collected 
                                             and reported reliably and consistently by Canada's various police agencies.
-                                            All data and coding for this dashboard is publicly available via Github.
-                                            """,
+                                            All data and coding for this project is publicly available at this 
+                                            [Github repository](https://github.com/UBC-MDS/532_Group_22).
+                                            '''],
+        
                                             style = {'color': 'grey',
-                                                     'font-size': '12px'})          
+                                                     'font-size': '12px'}),        
 
                                         ],
                                         style = {'background-color': '#e6e6e6',
@@ -164,7 +166,10 @@ def generate_layout():
                                             style={"position": "absolute", 
                                                 "top": "40px", 
                                                 "right": "2%", 
-                                                "z-index": "1000"})
+                                                "z-index": "1000"}
+                                        ),
+                                        html.Div(id="highlight")
+                                                
                                     ]
                                 ),
                             ]

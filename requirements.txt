@@ -7,4 +7,4 @@ plotly==4.14.3
 dash-leaflet
 dash-extensions
 numpy
-json
+matplotlib
